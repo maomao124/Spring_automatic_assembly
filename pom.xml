@@ -27,33 +27,40 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.0.2.RELEASE</version>
+            <version>5.3.16</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.0.2.RELEASE</version>
+            <version>5.3.16</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>5.0.2.RELEASE</version>
+            <version>5.3.16</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>5.0.2.RELEASE</version>
+            <version>5.3.16</version>
+        </dependency>
+        <!--spring注解，初始化回调方法和销毁回调方法注解-->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+        <!--注解实现Spring自动装配-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>5.3.16</version>
         </dependency>
         <!--日志相关-->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-            <version>1.3.5</version>
         </dependency>
     </dependencies>
 
@@ -74,7 +81,30 @@
                 </configuration>
             </plugin>
             <!--jar包依赖插件放入位置-->
-
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <!-- 此处指定main方法入口的class -->
+                            <mainClass>test</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>assembly</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!--可选模块，添加console_hide模式的jar文件，配合本人开发的jar文件启动器使用。使用实时模板，或者使用下面的-->
             <!--https://github.com/maomao124/run-jar-tool-3.0-->
             <plugin>
